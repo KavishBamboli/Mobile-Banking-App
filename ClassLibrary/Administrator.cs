@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    class Administrator : IAdministrator
+    public class Administrator : IAdministrator
     {
         public string Name { get; set; }
         public string userName { get; set; }

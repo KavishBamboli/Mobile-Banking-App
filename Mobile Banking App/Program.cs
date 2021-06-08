@@ -12,7 +12,13 @@ namespace Mobile_Banking_App
     {
         static void Main(string[] args)
         {
-            
+            var container = ContainerConfig.Configure();
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var app = scope.Resolve<Application>();
+                app.Run();
+            }
         }
     }
 }

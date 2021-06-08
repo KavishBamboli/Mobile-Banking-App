@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    public interface IAdministrator
+    public enum AccountType
     {
-        string Name { get; set; }
-        string userName { get; set; }
-        string password { get; set; }
-    }
+        Savings,
+        Current
+    };
 }

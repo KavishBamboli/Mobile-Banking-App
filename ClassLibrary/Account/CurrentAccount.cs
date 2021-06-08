@@ -8,23 +8,36 @@ namespace ClassLibrary.Account
 {
     public class CurrentAccount : IAccount
     {
+        private ITransactions _transaction;
         public int accNo { get; set; }
         public int balance { get; set; }
         public int TotalOverdraftBalance { get; private set; }
 
-        public bool MakeDeposit(int amount)
+        public bool MakeDeposit(int amount, string details)
         {
             balance += amount;
+            _transaction.Amount = amount;
+            _transaction.TransactionDate = DateTime.Today;
+            _transaction.TransactionDescription = details;
+            _transaction.TransactonType = "Credit";
+            _transaction.TransactionId = 1; //Transaction id generator;
+            RecordTransaction.SaveToFile(_transaction);
             return true;
         }
 
-        public bool MakeWithdrawal(int amount)
+        public bool MakeWithdrawal(int amount, string details)
         {
             if (balance < amount)
             {
                 if (MakeOverdraft(balance - amount))
                 {
                     balance -= amount;
+                    _transaction.Amount = amount;
+                    _transaction.TransactionDate = DateTime.Today;
+                    _transaction.TransactionDescription = details;
+                    _transaction.TransactonType = "Debit";
+                    _transaction.TransactionId = 1; //Transaction id generator;
+                    RecordTransaction.SaveToFile(_transaction);
                     return true;
                 }
                 else
@@ -33,6 +46,12 @@ namespace ClassLibrary.Account
             else
             {
                 balance -= amount;
+                _transaction.Amount = amount;
+                _transaction.TransactionDate = DateTime.Today;
+                _transaction.TransactionDescription = details;
+                _transaction.TransactonType = "Debit";
+                _transaction.TransactionId = 1; //Transaction id generator;
+                RecordTransaction.SaveToFile(_transaction);
                 return true;
             }
         }
