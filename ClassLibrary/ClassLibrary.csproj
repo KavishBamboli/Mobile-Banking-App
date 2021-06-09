@@ -51,6 +51,7 @@
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Generators\LoginPinGenerator.cs" />
     <Compile Include="RecordTransaction.cs" />
+    <Compile Include="Generators\TransactionIdGenerator.cs" />
     <Compile Include="Transactions\ITransactions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Account\SavingsAccount.cs" />

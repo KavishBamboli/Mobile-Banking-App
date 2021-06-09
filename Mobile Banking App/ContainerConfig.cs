@@ -7,7 +7,6 @@ using Autofac;
 using ClassLibrary.Account;
 using ClassLibrary.Customer;
 using ClassLibrary;
-using Mobile_Banking_App.Menu;
 
 namespace Mobile_Banking_App
 {
@@ -17,10 +16,11 @@ namespace Mobile_Banking_App
         {
             var builder = new ContainerBuilder();
 
-            builder.Register(ctx => new SavingsCustomer(new SavingsAccount()));
-            builder.Register(ctx => new CurrentCustomer(new CurrentAccount()));
+            builder.RegisterType<SavingsAccount>().AsSelf();
+            builder.RegisterType<CurrentAccount>().AsSelf();
+            builder.Register(ctx => new SavingsCustomer(ctx.Resolve<SavingsAccount>()));
+            builder.Register(ctx => new CurrentCustomer(ctx.Resolve<CurrentAccount>()));
             builder.RegisterType<Administrator>().As<IAdministrator>();
-            builder.RegisterType<Menus>().As<IMenus>();
             builder.RegisterType<Application>().AsSelf();
             builder.RegisterType<Transactions>().As<ITransactions>();
 

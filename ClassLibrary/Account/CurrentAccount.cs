@@ -20,7 +20,7 @@ namespace ClassLibrary.Account
             _transaction.TransactionDate = DateTime.Today;
             _transaction.TransactionDescription = details;
             _transaction.TransactonType = "Credit";
-            _transaction.TransactionId = 1; //Transaction id generator;
+            _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
             RecordTransaction.SaveToFile(_transaction);
             return true;
         }
@@ -36,7 +36,7 @@ namespace ClassLibrary.Account
                     _transaction.TransactionDate = DateTime.Today;
                     _transaction.TransactionDescription = details;
                     _transaction.TransactonType = "Debit";
-                    _transaction.TransactionId = 1; //Transaction id generator;
+                    _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
                     RecordTransaction.SaveToFile(_transaction);
                     return true;
                 }
@@ -50,7 +50,7 @@ namespace ClassLibrary.Account
                 _transaction.TransactionDate = DateTime.Today;
                 _transaction.TransactionDescription = details;
                 _transaction.TransactonType = "Debit";
-                _transaction.TransactionId = 1; //Transaction id generator;
+                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
                 RecordTransaction.SaveToFile(_transaction);
                 return true;
             }

@@ -4,24 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobile_Banking_App.Menu
+namespace Mobile_Banking_App
 {
-    class Menus : IMenus
+    internal static class Menus
     {
-        public void MainMenu()
+        public static void MainMenu()
         {
             Console.WriteLine("Press 1 to login as Customer");
             Console.WriteLine("Press 2 to login as Administrator");
         }
 
-        public void SecondaryAdministratorMenu()
+        public static void SecondaryAdministratorMenu()
         {
             Console.WriteLine("1. Create a customer account");
             Console.WriteLine("2. Modify a customer account");
             Console.WriteLine("3. Delete a customer account");
         }
 
-        public void SecondaryCustomerMenu()
+        public static void SecondaryCustomerMenu()
         {
             Console.WriteLine("1. Withdraw money from your account");
             Console.WriteLine("2. Deposit money into your account");

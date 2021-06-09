@@ -8,10 +8,10 @@ namespace ClassLibrary
 {
     public class Transactions : ITransactions
     {
-        public int TransactionId { get; internal set; }
-        public string TransactionDescription { get; internal set; }
-        public DateTime TransactionDate { get; internal set; }
-        public string TransactonType { get; internal set; }
-        public int Amount { get; internal set; }
+        public int TransactionId { get; set; }
+        public string TransactionDescription { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public string TransactonType { get; set; }
+        public int Amount { get; set; }
     }
 }

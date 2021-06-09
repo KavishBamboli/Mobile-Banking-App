@@ -1,5 +1,4 @@
-﻿using Mobile_Banking_App.Menu;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,19 +8,34 @@ namespace Mobile_Banking_App
 {
     class Application
     {
-        IMenus _menu;
-        public Application(IMenus menu)
-        {
-            _menu = menu;
-        }
 
         public void Run()
         {
-            _menu.MainMenu();
+            Menus.MainMenu();
             Console.WriteLine("Enter your selection");
             int choice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
 
-            //Code to handle the choice
+            if (choice == 1)
+            {
+                if (AuthenticateUser.AuthenticateCustomer())
+                {
+                    Menus.SecondaryCustomerMenu();
+                    Console.Read();
+                }
+            }
+
+            else if (choice == 2)
+            {
+                if (AuthenticateUser.AuthenticateAdmin())
+                {
+                    Menus.SecondaryAdministratorMenu();
+                    Console.Read();
+                }
+            }
+
+            else
+                Console.WriteLine("Invalid Choice");
         }
     }
 }
