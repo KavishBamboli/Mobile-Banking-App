@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Customer
 {
-    public class CurrentCustomer : ICustomer
+    public class CurrentCustomer : ICurrentCustomer, ICustomer
     {
         private IAccount _account;
         public string Name { get; set; }

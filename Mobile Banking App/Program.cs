@@ -16,8 +16,23 @@ namespace Mobile_Banking_App
 
             using (var scope = container.BeginLifetimeScope())
             {
-                var app = scope.Resolve<Application>();
-                app.Run();
+                Menus.MainMenu();
+
+                int choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
+                if(choice==1)
+                {
+                    var app = scope.Resolve<ApplicationForCustomer>();
+                    app.Run();
+                }
+
+                else if(choice==2)
+                {
+                    var app = scope.Resolve<ApplicationForAdmin>();
+                    app.Run();
+                }
+                
             }
         }
     }

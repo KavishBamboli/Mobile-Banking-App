@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer\ICurrentCustomer.cs" />
+    <Compile Include="Customer\ICustomer.cs" />
+    <Compile Include="Customer\ISavingsCustomer.cs" />
     <Compile Include="Generators\AccountNumberGenerator.cs" />
     <Compile Include="AccountType.cs" />
     <Compile Include="Administrator.cs" />
@@ -48,7 +51,6 @@
     <Compile Include="Customer\CurrentCustomer.cs" />
     <Compile Include="Account\IAccount.cs" />
     <Compile Include="IAdministrator.cs" />
-    <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Generators\LoginPinGenerator.cs" />
     <Compile Include="RecordTransaction.cs" />
     <Compile Include="Generators\TransactionIdGenerator.cs" />

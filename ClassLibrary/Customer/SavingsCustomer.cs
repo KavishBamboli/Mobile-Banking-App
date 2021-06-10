@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Customer
 {
-    public class SavingsCustomer : ICustomer
+    public class SavingsCustomer : ICustomer, ISavingsCustomer
     {
         private IAccount _account;
         public string Name { get; set; }
@@ -24,6 +24,5 @@ namespace ClassLibrary.Customer
             get { return _account; }
             set { _account = value; }
         }
-
     }
 }

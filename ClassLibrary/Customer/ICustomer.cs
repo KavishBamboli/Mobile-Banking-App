@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Customer
 {
-    interface ICustomer
+    public interface ICustomer
     {
         string Name { get; set; }
         string Email { get; set; }
         int LoginPin { get; }
         IAccount Account { get; set; }
-
     }
 }

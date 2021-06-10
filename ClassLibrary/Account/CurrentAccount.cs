@@ -8,10 +8,15 @@ namespace ClassLibrary.Account
 {
     public class CurrentAccount : IAccount
     {
-        private ITransactions _transaction;
+        ITransactions _transaction;
         public int accNo { get; set; }
         public int balance { get; set; }
         public int TotalOverdraftBalance { get; private set; }
+
+        public CurrentAccount(ITransactions transaction)
+        {
+            _transaction = transaction;
+        }
 
         public bool MakeDeposit(int amount, string details)
         {

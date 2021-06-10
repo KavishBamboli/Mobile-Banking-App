@@ -16,13 +16,14 @@ namespace Mobile_Banking_App
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<SavingsAccount>().AsSelf();
-            builder.RegisterType<CurrentAccount>().AsSelf();
-            builder.Register(ctx => new SavingsCustomer(ctx.Resolve<SavingsAccount>()));
-            builder.Register(ctx => new CurrentCustomer(ctx.Resolve<CurrentAccount>()));
+            builder.RegisterType<SavingsAccount>();
+            builder.RegisterType<CurrentAccount>();
+            builder.Register(ctx => new SavingsCustomer(ctx.Resolve<SavingsAccount>())).As<ISavingsCustomer>();
+            builder.Register(ctx => new CurrentCustomer(ctx.Resolve<CurrentAccount>())).As<ICurrentCustomer>();
             builder.RegisterType<Administrator>().As<IAdministrator>();
-            builder.RegisterType<Application>().AsSelf();
             builder.RegisterType<Transactions>().As<ITransactions>();
+            builder.RegisterType<ApplicationForCustomer>().AsSelf();
+            builder.RegisterType<ApplicationForAdmin>().AsSelf();
 
             return builder.Build();
         }

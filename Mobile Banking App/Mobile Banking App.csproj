@@ -68,12 +68,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
-    <Compile Include="AuthenticateUser.cs" />
+    <Compile Include="AdminApp\ApplicationForAdmin.cs" />
+    <Compile Include="CustomerApp\ApplicationForCustomer.cs" />
+    <Compile Include="AdminApp\AuthenticateAdmin.cs" />
+    <Compile Include="CustomerApp\AuthenticateCustomer.cs" />
     <Compile Include="ContainerConfig.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserChoice.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
