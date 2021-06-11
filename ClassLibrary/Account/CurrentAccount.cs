@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Account
 {
-    public class CurrentAccount : IAccount
+    public class CurrentAccount : IAccount, ICurrentAccount
     {
         ITransactions _transaction;
         public int accNo { get; set; }
-        public int balance { get; set; }
+        public int balance { get; set; } = -20000;
         public int TotalOverdraftBalance { get; private set; }
 
         public CurrentAccount(ITransactions transaction)
@@ -20,21 +20,33 @@ namespace ClassLibrary.Account
 
         public bool MakeDeposit(int amount, string details)
         {
-            balance += amount;
-            _transaction.Amount = amount;
-            _transaction.TransactionDate = DateTime.Today;
-            _transaction.TransactionDescription = details;
-            _transaction.TransactonType = "Credit";
-            _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-            RecordTransaction.SaveToFile(_transaction);
-            return true;
+            if (amount > 100000)
+            {
+                balance += amount;
+                _transaction.Amount = amount;
+                _transaction.TransactionDate = DateTime.Today;
+                _transaction.TransactionDescription = details;
+                _transaction.TransactonType = "Credit";
+                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                RecordTransaction.SaveToFile(_transaction);
+                return true;
+            }
+            else
+                return false;
         }
 
         public bool MakeWithdrawal(int amount, string details)
         {
-            if (balance < amount)
+            if (amount < 50000)
             {
-                if (MakeOverdraft(balance - amount))
+                if (balance < amount)
+                {
+                    if (MakeOverdraft(balance - amount, "Made overdarft from the account"))
+                        return true;
+                    else
+                        return false;
+                }
+                else
                 {
                     balance -= amount;
                     _transaction.Amount = amount;
@@ -45,23 +57,12 @@ namespace ClassLibrary.Account
                     RecordTransaction.SaveToFile(_transaction);
                     return true;
                 }
-                else
-                    return false;
             }
             else
-            {
-                balance -= amount;
-                _transaction.Amount = amount;
-                _transaction.TransactionDate = DateTime.Today;
-                _transaction.TransactionDescription = details;
-                _transaction.TransactonType = "Debit";
-                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-                RecordTransaction.SaveToFile(_transaction);
-                return true;
-            }
+                return false;
         }
 
-        private bool MakeOverdraft(int amount)
+        private bool MakeOverdraft(int amount, string details)
         {
             if (TotalOverdraftBalance < 100000)
             {
@@ -69,6 +70,13 @@ namespace ClassLibrary.Account
                     return false;
                 else
                 {
+                    balance -= amount;
+                    _transaction.Amount = amount;
+                    _transaction.TransactionDate = DateTime.Today;
+                    _transaction.TransactionDescription = details;
+                    _transaction.TransactonType = "Debit";
+                    _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                    RecordTransaction.SaveToFile(_transaction);
                     TotalOverdraftBalance += amount;
                     return true;
                 }

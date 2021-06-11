@@ -10,7 +10,7 @@ namespace ClassLibrary.Account
     {
         private ITransactions _transaction;
         public int accNo { get; set; }
-        public int balance { get; set; }
+        public int balance { get; set; } = 50000;
 
         public SavingsAccount(ITransactions transaction)
         {
@@ -18,20 +18,25 @@ namespace ClassLibrary.Account
         }
         public bool MakeDeposit(int amount, string details)
         {
-            balance += amount;
-            _transaction.Amount = amount;
-            _transaction.TransactionDate = DateTime.Today;
-            _transaction.TransactionDescription = details;
-            _transaction.TransactonType = "Credit";
-            _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Savings);
-            RecordTransaction.SaveToFile(_transaction);
-            return true;
+            if (amount > 20000)
+            {
+                balance += amount;
+                _transaction.Amount = amount;
+                _transaction.TransactionDate = DateTime.Today;
+                _transaction.TransactionDescription = details;
+                _transaction.TransactonType = "Credit";
+                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Savings);
+                RecordTransaction.SaveToFile(_transaction);
+                return true;
+            }
+            else
+                return false;
 
         }
 
         public bool MakeWithdrawal(int amount, string details)
         {
-            if (balance < amount)
+            if (balance < amount || amount > 10000)
                 return false;
             else
             {

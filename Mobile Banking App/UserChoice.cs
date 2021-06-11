@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ClassLibrary.Customer;
+using Mobile_Banking_App.CustomerUseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +15,33 @@ namespace Mobile_Banking_App
 
         public static void CustomerChoice(int choice, ICustomer customer)
         {
+            Console.Clear();
             using (var scope = container.BeginLifetimeScope())
             {
                 switch (choice)
                 {
                     case 1:
-                        //Function to withdraw money
+                        if(WithdrawMoney.Withdraw(customer))
+                            Console.WriteLine("Withdrawal successful");
+                        else
+                            Console.WriteLine("Withdrawal failed!!");
+                        Console.ReadLine();
                         break;
 
                     case 2:
-                        //Function to deposit money
+                        if(DepositMoney.Deposit(customer))
+                            Console.WriteLine("Deposit successful");
+                        else
+                            Console.WriteLine("Deposit failed as it exceeded amount limit per transaction");
+                        Console.ReadLine();
                         break;
 
                     case 3:
-                        //Function to transfer money to another account
                         break;
 
                     case 4:
-                        //Function to view balance
+                        Balance.ViewBalance(customer);
+                        Console.ReadLine();
                         break;
 
                     case 5:

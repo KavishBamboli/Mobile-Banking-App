@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\ICurrentAccount.cs" />
     <Compile Include="Customer\ICurrentCustomer.cs" />
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Customer\ISavingsCustomer.cs" />

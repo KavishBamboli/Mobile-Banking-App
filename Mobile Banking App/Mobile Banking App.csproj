@@ -73,6 +73,9 @@
     <Compile Include="AdminApp\AuthenticateAdmin.cs" />
     <Compile Include="CustomerApp\AuthenticateCustomer.cs" />
     <Compile Include="ContainerConfig.cs" />
+    <Compile Include="CustomerUseClasses\DepositMoney.cs" />
+    <Compile Include="CustomerUseClasses\Balance.cs" />
+    <Compile Include="CustomerUseClasses\WithdrawMoney.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
