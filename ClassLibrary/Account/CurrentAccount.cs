@@ -10,8 +10,9 @@ namespace ClassLibrary.Account
     {
         ITransactions _transaction;
         public int accNo { get; set; }
-        public int balance { get; set; } = -20000;
+        public int balance { get; set; }
         public int TotalOverdraftBalance { get; private set; }
+        public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
 
         public CurrentAccount(ITransactions transaction)
         {
@@ -28,6 +29,7 @@ namespace ClassLibrary.Account
                 _transaction.TransactionDescription = details;
                 _transaction.TransactonType = "Credit";
                 _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                transactions.Add(_transaction);
                 RecordTransaction.SaveToFile(_transaction);
                 return true;
             }
@@ -54,6 +56,7 @@ namespace ClassLibrary.Account
                     _transaction.TransactionDescription = details;
                     _transaction.TransactonType = "Debit";
                     _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                    transactions.Add(_transaction);
                     RecordTransaction.SaveToFile(_transaction);
                     return true;
                 }
@@ -76,6 +79,7 @@ namespace ClassLibrary.Account
                     _transaction.TransactionDescription = details;
                     _transaction.TransactonType = "Debit";
                     _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                    transactions.Add(_transaction);
                     RecordTransaction.SaveToFile(_transaction);
                     TotalOverdraftBalance += amount;
                     return true;

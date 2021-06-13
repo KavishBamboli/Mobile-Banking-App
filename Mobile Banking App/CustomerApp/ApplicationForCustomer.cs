@@ -31,11 +31,15 @@ namespace Mobile_Banking_App
 
                 if (_savingsCustomer != null)
                 {
-                    Menus.TertiaryCustomerMenu();
+                    int choice2;
+                    do
+                    {
+                        Menus.TertiaryCustomerMenu();
 
-                    int choice2 = Convert.ToInt32(Console.ReadLine());
+                        choice2 = Convert.ToInt32(Console.ReadLine());
 
-                    UserChoice.CustomerChoice(choice2, _savingsCustomer);
+                        UserChoice.CustomerChoice(choice2, _savingsCustomer);
+                    } while (choice2 != 6);
                 }
 
                 else
@@ -46,13 +50,18 @@ namespace Mobile_Banking_App
             {
                 _currentCustomer = AuthenticateCustomer.Authenticate(_currentCustomer);
 
+                int choice2;
+
                 if (_currentCustomer != null)
                 {
-                    Menus.TertiaryCustomerMenu();
+                    do
+                    {
+                        Menus.TertiaryCustomerMenu();
 
-                    int choice2 = Convert.ToInt32(Console.ReadLine());
+                        choice2 = Convert.ToInt32(Console.ReadLine());
 
-                    UserChoice.CustomerChoice(choice2, _currentCustomer);
+                        UserChoice.CustomerChoice(choice2, _currentCustomer);
+                    } while (choice2 != 6);
                 }
 
                 else

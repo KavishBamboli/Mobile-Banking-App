@@ -11,7 +11,7 @@ namespace ClassLibrary.Account
         private ITransactions _transaction;
         public int accNo { get; set; }
         public int balance { get; set; } = 50000;
-
+        public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
         public SavingsAccount(ITransactions transaction)
         {
             _transaction = transaction;
@@ -26,6 +26,7 @@ namespace ClassLibrary.Account
                 _transaction.TransactionDescription = details;
                 _transaction.TransactonType = "Credit";
                 _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Savings);
+                transactions.Add(_transaction);
                 RecordTransaction.SaveToFile(_transaction);
                 return true;
             }
@@ -46,6 +47,7 @@ namespace ClassLibrary.Account
                 _transaction.TransactionDescription = details;
                 _transaction.TransactonType = "Debit";
                 _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
+                transactions.Add(_transaction);
                 RecordTransaction.SaveToFile(_transaction);
                 return true;
             }
