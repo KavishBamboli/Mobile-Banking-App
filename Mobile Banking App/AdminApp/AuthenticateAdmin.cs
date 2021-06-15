@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobile_Banking_App
+namespace MobileBankingApplication
 {
     internal static class AuthenticateAdmin
     {

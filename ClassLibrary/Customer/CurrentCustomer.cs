@@ -13,7 +13,7 @@ namespace ClassLibrary.Customer
         public string Name { get; set; }
         public string OwnerName { get; set; }
         public string Email { get; set; }
-        public int LoginPin { get; internal set; }
+        public int LoginPin { get; set; }
 
         public CurrentCustomer(IAccount account)
         {

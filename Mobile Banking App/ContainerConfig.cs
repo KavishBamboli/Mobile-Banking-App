@@ -7,8 +7,10 @@ using Autofac;
 using ClassLibrary.Account;
 using ClassLibrary.Customer;
 using ClassLibrary;
+using System.Reflection;
+using MobileBankingApplication.AdminUseClasses;
 
-namespace Mobile_Banking_App
+namespace MobileBankingApplication
 {
     public static class ContainerConfig
     {
@@ -24,6 +26,9 @@ namespace Mobile_Banking_App
             builder.RegisterType<Transactions>().As<ITransactions>();
             builder.RegisterType<ApplicationForCustomer>().AsSelf();
             builder.RegisterType<ApplicationForAdmin>().AsSelf();
+
+            builder.RegisterType<CreateSavingsAccount>().AsSelf();
+            builder.RegisterType<CreateCurrentAccount>().AsSelf();
 
             return builder.Build();
         }

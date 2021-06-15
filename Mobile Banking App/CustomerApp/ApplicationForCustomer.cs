@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobile_Banking_App
+namespace MobileBankingApplication
 {
     internal class ApplicationForCustomer
     {
@@ -38,7 +38,7 @@ namespace Mobile_Banking_App
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoice.CustomerChoice(choice2, _savingsCustomer);
+                        UserChoiceHandler.CustomerChoice(choice2, _savingsCustomer);
                     } while (choice2 != 6);
                 }
 
@@ -60,7 +60,7 @@ namespace Mobile_Banking_App
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoice.CustomerChoice(choice2, _currentCustomer);
+                        UserChoiceHandler.CustomerChoice(choice2, _currentCustomer);
                     } while (choice2 != 6);
                 }
 

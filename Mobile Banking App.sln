@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile Banking App", "Mobile Banking App\Mobile Banking App.csproj", "{2F6CF3E9-710A-41AD-85EE-23F0CE9519D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBankingApplication", "Mobile Banking App\MobileBankingApplication.csproj", "{2F6CF3E9-710A-41AD-85EE-23F0CE9519D0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2C914D23-1775-4D6C-BF2F-5BE1E3370EE7} = {2C914D23-1775-4D6C-BF2F-5BE1E3370EE7}
 	EndProjectSection

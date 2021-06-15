@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobile_Banking_App.CustomerUseClasses
+namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class Balance
     {

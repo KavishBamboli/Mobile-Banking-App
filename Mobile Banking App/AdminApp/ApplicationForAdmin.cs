@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobile_Banking_App
+namespace MobileBankingApplication
 {
     internal class ApplicationForAdmin
     {
@@ -22,12 +22,17 @@ namespace Mobile_Banking_App
 
             if(_admin != null)
             {
-                Menus.SecondaryAdministratorMenu();
+                int choice;
+                do
+                {
+                    Menus.SecondaryAdministratorMenu();
+                    choice = Convert.ToInt32(Console.ReadLine());
 
-                int choice = Convert.ToInt32(Console.ReadLine());
-                Console.Clear();
+                    Console.Clear();
 
-                UserChoice.AdminChoice(choice);
+                    UserChoiceHandler.AdminChoice(choice);
+
+                } while (choice != 4);
             }
 
             else
