@@ -53,7 +53,7 @@
     <Compile Include="Account\IAccount.cs" />
     <Compile Include="IAdministrator.cs" />
     <Compile Include="Generators\LoginPinGenerator.cs" />
-    <Compile Include="RecordTransaction.cs" />
+    <Compile Include="Transactions\RecordTransaction.cs" />
     <Compile Include="Generators\TransactionIdGenerator.cs" />
     <Compile Include="Transactions\ITransactions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

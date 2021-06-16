@@ -16,15 +16,16 @@ namespace MobileBankingApplication
             _admin = admin;
         }
 
-        internal void Run()
+        internal async Task Run()
         {
-            _admin = AuthenticateAdmin.Authenticate(_admin);
+            _admin = await AuthenticateAdmin.Authenticate(_admin);
 
-            if(_admin != null)
+            if (_admin != null)
             {
                 int choice;
                 do
                 {
+                    Console.Clear();
                     Menus.SecondaryAdministratorMenu();
                     choice = Convert.ToInt32(Console.ReadLine());
 
@@ -36,7 +37,11 @@ namespace MobileBankingApplication
             }
 
             else
-                Console.WriteLine("Invalid selection");
+            {
+                Console.WriteLine("Wrong username or password");
+                Console.WriteLine("Press Enter to exit");
+                Console.ReadLine();
+            }
         }
     }
 }

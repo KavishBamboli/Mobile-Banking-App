@@ -12,6 +12,7 @@ namespace MobileBankingApplication
     {
         internal static ICustomer Authenticate(ICustomer customer)
         {
+            //Function to get the customer from the file
             return customer;
         }
     }

@@ -10,7 +10,7 @@ namespace MobileBankingApplication
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var container = ContainerConfig.Configure();
 
@@ -30,7 +30,7 @@ namespace MobileBankingApplication
                 else if(choice==2)
                 {
                     var app = scope.Resolve<ApplicationForAdmin>();
-                    app.Run();
+                    await app.Run();
                 }
                 
             }

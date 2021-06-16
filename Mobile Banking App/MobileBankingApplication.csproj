@@ -85,6 +85,7 @@
     <Compile Include="CustomerUseClasses\ViewSavingsAccountBalance.cs" />
     <Compile Include="CustomerUseClasses\ViewStatement.cs" />
     <Compile Include="CustomerUseClasses\WithdrawMoney.cs" />
+    <Compile Include="FileHandling.cs\LoadFromFile.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,5 +101,6 @@
       <Name>ClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
