@@ -10,7 +10,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     public static class ViewStatement
     {
-        public static void View(ICustomer customer)
+        public static void View<T>(T customer) where T : ICustomer
         {
             //if required include a function to fill in the transaction in the customer class
             Console.WriteLine($"Date\t\tTransaction Id\t\tDetails\t\tAmount\t\tDebit/Credit");

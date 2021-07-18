@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     public static class TransferMoney
     {
-        public static bool Transfer(ICustomer customer)
+        public static bool Transfer<T>(T customer) where T : ICustomer
         {
             Console.WriteLine("Enter beneficiary account number: ");
             int accNo = Convert.ToInt32(Console.ReadLine());

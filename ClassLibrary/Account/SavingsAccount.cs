@@ -8,26 +8,16 @@ namespace ClassLibrary.Account
 {
     public class SavingsAccount : IAccount
     {
-        private ITransactions _transaction;
         public int accNo { get; set; }
         public int balance { get; set; } = 50000;
         public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
-        public SavingsAccount(ITransactions transaction)
-        {
-            _transaction = transaction;
-        }
+        
         public bool MakeDeposit(int amount, string details)
         {
-            if (amount > 20000)
+            if (amount < 20000)
             {
                 balance += amount;
-                _transaction.Amount = amount;
-                _transaction.TransactionDate = DateTime.Today;
-                _transaction.TransactionDescription = details;
-                _transaction.TransactonType = "Credit";
-                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Savings);
-                transactions.Add(_transaction);
-                RecordTransaction.SaveToFile(_transaction);
+                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Savings));
                 return true;
             }
             else
@@ -42,13 +32,7 @@ namespace ClassLibrary.Account
             else
             {
                 balance -= amount;
-                _transaction.Amount = amount;
-                _transaction.TransactionDate = DateTime.Today;
-                _transaction.TransactionDescription = details;
-                _transaction.TransactonType = "Debit";
-                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-                transactions.Add(_transaction);
-                RecordTransaction.SaveToFile(_transaction);
+                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Savings));
                 return true;
             }
         }

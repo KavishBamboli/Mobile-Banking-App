@@ -8,9 +8,17 @@ namespace ClassLibrary
 {
     internal static class RecordTransaction
     {
-        public static void SaveToFile(ITransactions transaction)
+        public static ITransactions Record(int amount, DateTime date, string details, string type, AccountType account)
         {
-            //code for saving the transaction to file
+            ITransactions transaction = new Transactions();
+
+            transaction.Amount = amount;
+            transaction.TransactionId = TransactionIdGenerator.GenerateId(account);
+            transaction.TransactionDate = date;
+            transaction.TransactionDescription = details;
+            transaction.TransactonType = type;
+
+            return transaction;
         }
     }
 }

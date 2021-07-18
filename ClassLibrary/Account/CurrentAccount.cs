@@ -8,29 +8,17 @@ namespace ClassLibrary.Account
 {
     public class CurrentAccount : IAccount, ICurrentAccount
     {
-        ITransactions _transaction;
         public int accNo { get; set; }
-        public int balance { get; set; }
+        public int balance { get; set; } = 500000;
         public int TotalOverdraftBalance { get; private set; }
         public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
 
-        public CurrentAccount(ITransactions transaction)
-        {
-            _transaction = transaction;
-        }
-
         public bool MakeDeposit(int amount, string details)
         {
-            if (amount > 100000)
+            if (amount < 100000)
             {
                 balance += amount;
-                _transaction.Amount = amount;
-                _transaction.TransactionDate = DateTime.Today;
-                _transaction.TransactionDescription = details;
-                _transaction.TransactonType = "Credit";
-                _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-                transactions.Add(_transaction);
-                RecordTransaction.SaveToFile(_transaction);
+                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Current));
                 return true;
             }
             else
@@ -51,13 +39,7 @@ namespace ClassLibrary.Account
                 else
                 {
                     balance -= amount;
-                    _transaction.Amount = amount;
-                    _transaction.TransactionDate = DateTime.Today;
-                    _transaction.TransactionDescription = details;
-                    _transaction.TransactonType = "Debit";
-                    _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-                    transactions.Add(_transaction);
-                    RecordTransaction.SaveToFile(_transaction);
+                    transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current));
                     return true;
                 }
             }
@@ -74,13 +56,7 @@ namespace ClassLibrary.Account
                 else
                 {
                     balance -= amount;
-                    _transaction.Amount = amount;
-                    _transaction.TransactionDate = DateTime.Today;
-                    _transaction.TransactionDescription = details;
-                    _transaction.TransactonType = "Debit";
-                    _transaction.TransactionId = TransactionIdGenerator.GenerateId(AccountType.Current);
-                    transactions.Add(_transaction);
-                    RecordTransaction.SaveToFile(_transaction);
+                    transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current));
                     TotalOverdraftBalance += amount;
                     return true;
                 }

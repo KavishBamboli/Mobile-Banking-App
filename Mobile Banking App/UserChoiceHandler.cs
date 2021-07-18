@@ -12,13 +12,13 @@ namespace MobileBankingApplication
 {
     internal class UserChoiceHandler
     {
-        public static void CustomerChoice(int choice, ICustomer customer)
+        public static void CustomerChoice<T>(int choice, T customer) where T : ICustomer 
         {
             Console.Clear();
             switch (choice)
             {
                 case 1:
-                    if(WithdrawMoney.Withdraw(customer))
+                    if(WithdrawMoney.Withdraw<T>(customer))
                         Console.WriteLine("Withdrawal successful");
                     else
                         Console.WriteLine("Withdrawal failed!!");
@@ -26,7 +26,7 @@ namespace MobileBankingApplication
                     break;
 
                 case 2:
-                    if(DepositMoney.Deposit(customer))
+                    if(DepositMoney.Deposit<T>(customer))
                         Console.WriteLine("Deposit successful");
                     else
                         Console.WriteLine("Deposit failed as it exceeded amount limit per transaction");
@@ -48,7 +48,7 @@ namespace MobileBankingApplication
                     break;
 
                 case 5:
-                    ViewStatement.View(customer);
+                    ViewStatement.View<T>(customer);
                     Console.ReadLine();
                     break;
 

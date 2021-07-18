@@ -9,8 +9,8 @@ namespace MobileBankingApplication
 {
     internal class ApplicationForCustomer
     {
-        ICustomer _savingsCustomer;
-        ICustomer _currentCustomer;
+        ISavingsCustomer _savingsCustomer;
+        ICurrentCustomer _currentCustomer;
 
         public ApplicationForCustomer(ISavingsCustomer savingsCustomer, ICurrentCustomer currentCustomer)
         {
@@ -18,7 +18,7 @@ namespace MobileBankingApplication
             _currentCustomer = currentCustomer;
         }
 
-        internal void Run()
+        internal async Task Run()
         {
             Menus.SecondaryCustomerMenu();
 
@@ -27,28 +27,36 @@ namespace MobileBankingApplication
 
             if (choice == 1)
             {
-                _savingsCustomer = AuthenticateCustomer.Authenticate(_savingsCustomer);
+                _savingsCustomer = await AuthenticateCustomer.Authenticate<ISavingsCustomer>(_savingsCustomer, ClassLibrary.AccountType.Savings);
 
                 if (_savingsCustomer != null)
                 {
                     int choice2;
                     do
                     {
+                        Console.WriteLine();
+                        Console.WriteLine($"Welcome Mr/Mrs. {_savingsCustomer.Name}");
+                        Console.ReadLine();
+
+                        Console.Clear();
                         Menus.TertiaryCustomerMenu();
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoiceHandler.CustomerChoice(choice2, _savingsCustomer);
+                        UserChoiceHandler.CustomerChoice<ISavingsCustomer>(choice2, _savingsCustomer);
                     } while (choice2 != 6);
                 }
 
                 else
+                {
                     Console.WriteLine("Invalid login pin");
+                    Console.ReadLine();
+                }
             }
 
             else if (choice == 2)
             {
-                _currentCustomer = AuthenticateCustomer.Authenticate(_currentCustomer);
+                _currentCustomer = await AuthenticateCustomer.Authenticate<ICurrentCustomer>(_currentCustomer, ClassLibrary.AccountType.Current);
 
                 int choice2;
 
@@ -56,16 +64,22 @@ namespace MobileBankingApplication
                 {
                     do
                     {
+                        Console.WriteLine($"Welcome {_currentCustomer.Name}");
+                        Console.WriteLine();
+
                         Menus.TertiaryCustomerMenu();
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoiceHandler.CustomerChoice(choice2, _currentCustomer);
+                        UserChoiceHandler.CustomerChoice<ICurrentCustomer>(choice2, _currentCustomer);
                     } while (choice2 != 6);
                 }
 
                 else
+                {
                     Console.WriteLine("Invalid login pin");
+                    Console.ReadLine();
+                }
             }
 
             else

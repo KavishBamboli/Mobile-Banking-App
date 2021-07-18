@@ -23,10 +23,8 @@ namespace MobileBankingApplication
             builder.Register(ctx => new SavingsCustomer(ctx.Resolve<IAccount>())).As<ISavingsCustomer>();
             builder.Register(ctx => new CurrentCustomer(ctx.Resolve<ICurrentAccount>())).As<ICurrentCustomer>();
             builder.RegisterType<Administrator>().As<IAdministrator>();
-            builder.RegisterType<Transactions>().As<ITransactions>();
             builder.RegisterType<ApplicationForCustomer>().AsSelf();
             builder.RegisterType<ApplicationForAdmin>().AsSelf();
-
             builder.RegisterType<CreateSavingsAccount>().AsSelf();
             builder.RegisterType<CreateCurrentAccount>().AsSelf();
 

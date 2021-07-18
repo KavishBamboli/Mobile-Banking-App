@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class DepositMoney
     {
-        internal static bool Deposit(ICustomer customer)
+        internal static bool Deposit<T>(T customer) where T : ICustomer
         {
             Console.WriteLine("Enter amount to deposit");
             int amount = Convert.ToInt32(Console.ReadLine());

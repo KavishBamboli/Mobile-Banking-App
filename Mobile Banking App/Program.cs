@@ -24,7 +24,7 @@ namespace MobileBankingApplication
                 if(choice==1)
                 {
                     var app = scope.Resolve<ApplicationForCustomer>();
-                    app.Run();
+                    await app.Run();
                 }
 
                 else if(choice==2)

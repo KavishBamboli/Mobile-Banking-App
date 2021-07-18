@@ -1,4 +1,5 @@
 ﻿using ClassLibrary;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,8 +13,10 @@ namespace MobileBankingApplication
     {
         internal async static Task<IAdministrator> Authenticate(IAdministrator admin)
         {
-            string path = @"D:\Programming Projects\Mobile Banking App\AdminDetails\admins.csv";
-            var admins = await Task.Run(() => LoadFromFile.LoadData<Administrator>(path));
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            Stream stream = File.Open(@"D:\Programming Projects\Mobile Banking App\Admins.xlsx", FileMode.Open);
+
+            var admins = await LoadAdminData.Load(stream);
 
             Console.WriteLine("Enter username: ");
             string username = Console.ReadLine();
@@ -21,7 +24,7 @@ namespace MobileBankingApplication
             Console.WriteLine("Enter password: ");
             string password = Console.ReadLine();
 
-            foreach(Administrator administrator in admins)
+            foreach (Administrator administrator in admins)
             {
                 if (administrator.userName == username && administrator.password == password)
                     return (IAdministrator)administrator;

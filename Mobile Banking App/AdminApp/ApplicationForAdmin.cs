@@ -25,6 +25,10 @@ namespace MobileBankingApplication
                 int choice;
                 do
                 {
+                    Console.WriteLine();
+                    Console.WriteLine($"Welcome {_admin.Name}");
+                    Console.ReadLine();
+
                     Console.Clear();
                     Menus.SecondaryAdministratorMenu();
                     choice = Convert.ToInt32(Console.ReadLine());
