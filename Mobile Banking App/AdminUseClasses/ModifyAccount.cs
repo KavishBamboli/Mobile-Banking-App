@@ -1,7 +1,9 @@
 ﻿using ClassLibrary;
 using ClassLibrary.Customer;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,46 +12,80 @@ namespace MobileBankingApplication.AdminUseClasses
 {
     internal static class ModifyAccount
     {
-        internal static void Modify(int accNo)
+        internal static void Modify<T>(int accNo, AccountType type) where T : ICustomer
         {
-            ICustomer customer = null;//Function to get the customer from the file
+            int row;
+            var customer = RetrieveCustomer.Retrieve<T>(accNo, type, out row);
 
-            if(customer!=null)
+            FileInfo file = new FileInfo(@"D:\Programming Projects\Mobile Banking App\Customers.xlsx");
+
+            if (customer != null && row!=0)
             {
-                Console.WriteLine("\n1. Modify Name\n3.Change login pin\n3.Modify email\n");
-                Console.WriteLine("Enter your selection");
-
-                int choice = Convert.ToInt32(Console.ReadLine());
-
-                switch (choice)
+                using (var package = new ExcelPackage(file))
                 {
-                    case 1:
-                        Console.WriteLine("Enter new name: ");
-                        customer.Name = Console.ReadLine();
+                    ExcelWorksheet ws;
+                    if (type == AccountType.Savings)
+                        ws = package.Workbook.Worksheets[0];
+                    else
+                        ws = package.Workbook.Worksheets[1];
 
-                        break;
+                    var prop = customer.GetType().GetProperties();
 
-                    case 2:
-                        customer.LoginPin = LoginPinGenerator.GeneratePin();
-                        Console.WriteLine($"New login pin is {customer.LoginPin}");
+                    for (int i = 0; i < prop.Length - 1; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. Modify {prop[i].Name}");
+                    }
+                    Console.WriteLine("Enter your selection");
 
-                        break;
+                    int choice = Convert.ToInt32(Console.ReadLine());
 
-                    case 3:
-                        Console.WriteLine("Enter new email: ");
-                        do
-                        {
-                            customer.Email = Console.ReadLine();
-                        } while (EmailValidator.Validate(customer.Email));
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter new name: ");
+                            ws.Cells[row, 1].Value = Console.ReadLine();
 
-                        break;
-                    default:
-                        Console.WriteLine("Invalid selection");
-                        break;
+                            break;
+
+                        case 2:
+                            Console.WriteLine($"Enter new {prop[1].Name}");
+                            if (prop[1].PropertyType == Type.GetType("System.String"))
+                                ws.Cells[row, 2].Value = Console.ReadLine();
+                            else
+                                ws.Cells[row, 2].Value = int.Parse(Console.ReadLine());
+
+                            break;
+
+                        case 3:
+                            Console.WriteLine("Enter new email: ");
+                            string email;
+                            do
+                            {
+                                email = Console.ReadLine();
+                            } while (EmailValidator.Validate(email));
+
+                            ws.Cells[row, 3].Value = email;
+
+                            break;
+
+                        case 4:
+                            int pin = LoginPinGenerator.GeneratePin();
+                            Console.WriteLine($"New login pin is {pin}");
+
+                            ws.Cells[row, 4].Value = pin;
+
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid selection");
+                            break;
+                    }
+                    package.Save();
+                    Console.WriteLine("Changes made successfully");
                 }
             }
 
-            //Function to write changes back to file
+
             else
                 Console.WriteLine("Account not found");
         }

@@ -16,7 +16,6 @@ namespace MobileBankingApplication
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             Stream stream = File.Open(@"D:\Programming Projects\Mobile Banking App\Customers.xlsx", FileMode.Open);
-
             var customers = await LoadCustomerData.Load<T>(stream, type);
 
             stream.Close();

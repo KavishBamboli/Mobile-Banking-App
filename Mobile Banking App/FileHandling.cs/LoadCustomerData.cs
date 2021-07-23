@@ -1,11 +1,8 @@
-﻿using Autofac;
-using ClassLibrary;
-using ClassLibrary.Account;
+﻿using ClassLibrary;
+using ClassLibrary.Customer;
 using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MobileBankingApplication
@@ -29,45 +26,20 @@ namespace MobileBankingApplication
             int row = 3;
             int col = 1;
 
-            var container = ContainerConfig.Configure();
-
             while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
             {
-                using (var scope = container.BeginLifetimeScope())
+                if (ws.Cells[row, col].Value.ToString() == "deleted")
                 {
-                    var c = scope.Resolve<T>();
-
-                    var prop = c.GetType().GetProperties();
-
-                    if (type == AccountType.Savings)
-                    {
-                        var account = scope.Resolve<IAccount>();
-                        account.accNo = int.Parse(ws.Cells[row, col + 4].Value.ToString());
-                        account.balance = int.Parse(ws.Cells[row, col + 5].Value.ToString());
-                        prop[prop.Length - 1].SetValue(c, account);
-                    }
-                    else if (type == AccountType.Current)
-                    {
-                        var account = scope.Resolve<ICurrentAccount>();
-                        account.accNo = int.Parse(ws.Cells[row, col + 4].Value.ToString());
-                        account.balance = int.Parse(ws.Cells[row, col + 5].Value.ToString());
-                        prop[prop.Length - 1].SetValue(c, account);
-                    }
-
-                    for (int i = 0; i < prop.Length - 1; i++)
-                    {
-                        if (prop[i].PropertyType == Type.GetType("System.String"))
-                            prop[i].SetValue(c, ws.Cells[row, col + i].Value.ToString());
-                        else
-                            prop[i].SetValue(c, int.Parse(ws.Cells[row, col + i].Value.ToString()));
-                    }
-
-                    output.Add(c);
-
                     row += 1;
+                    continue;
                 }
-            }
 
+                var c = WireCustomerData.Wire<T>(ws, row, type);
+
+                output.Add(c);
+
+                row += 1;
+            }
             return output;
         }
     }

@@ -1,8 +1,7 @@
 ﻿using ClassLibrary;
+using ClassLibrary.Customer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MobileBankingApplication
@@ -22,20 +21,28 @@ namespace MobileBankingApplication
 
             if (_admin != null)
             {
+
+                Console.WriteLine();
+                Console.WriteLine($"Welcome {_admin.Name}");
+                Console.ReadLine();
+
                 int choice;
+
+                Stream stream = File.Open(@"D:\Programming Projects\Mobile Banking App\Customers.xlsx", FileMode.Open);
+
+                var savingsCustomers = await LoadCustomerData.Load<ISavingsCustomer>(stream, AccountType.Savings);
+                var currentCustomers = await LoadCustomerData.Load<ICurrentCustomer>(stream, AccountType.Current);
+
+                stream.Close();
+
                 do
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"Welcome {_admin.Name}");
-                    Console.ReadLine();
-
                     Console.Clear();
                     Menus.SecondaryAdministratorMenu();
                     choice = Convert.ToInt32(Console.ReadLine());
 
                     Console.Clear();
-
-                    UserChoiceHandler.AdminChoice(choice);
+                    await UserChoiceHandler.AdminChoice(choice, savingsCustomers, currentCustomers);
 
                 } while (choice != 4);
             }

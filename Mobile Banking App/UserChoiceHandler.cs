@@ -1,9 +1,10 @@
-﻿using Autofac;
+﻿using ClassLibrary;
 using ClassLibrary.Customer;
 using MobileBankingApplication.AdminUseClasses;
 using MobileBankingApplication.CustomerUseClasses;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,57 +53,82 @@ namespace MobileBankingApplication
                     Console.ReadLine();
                     break;
 
+                case 6:
+                    Console.WriteLine("You have successfully logged out");
+                    Console.ReadLine();
+                    break;
+
                 default:
                     Console.WriteLine("Invalid selection");
                     break;
             }
         }
-        public static void AdminChoice(int choice)
+        public static async Task AdminChoice(int choice, List<ISavingsCustomer> savingsCustomers, List<ICurrentCustomer> currentCustomers)
         {
-            var container = ContainerConfig.Configure();
+            Console.Clear();
 
-            using (var scope = container.BeginLifetimeScope())
+            switch (choice)
             {
-                Console.Clear();
-                switch (choice)
-                {
-                    case 1:
-                        Console.WriteLine("Press 1 to create savings account");
-                        Console.WriteLine("Press 2 to create current account");
+                case 1:
+                    Console.WriteLine("Press 1 to create savings account");
+                    Console.WriteLine("Press 2 to create current account");
 
-                        int choice2 = Convert.ToInt32(Console.ReadLine());
-                        
-                        if(choice2 == 1)
-                        {
-                            var create = scope.Resolve<CreateSavingsAccount>();
-                            create.Create();
-                        }
+                    int choice2 = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
 
-                        else if(choice2 == 2)
-                        {
-                            var create = scope.Resolve<CreateCurrentAccount>();
-                            create.Create();
-                        }
-                        break;
+                    if (choice2 == 1)
+                        await CreateCustomerAccount.CreateAccount<ISavingsCustomer>(savingsCustomers, AccountType.Savings);
 
-                    case 2:
-                        Console.WriteLine("Enter account to modify: ");
-                        int accNo = Convert.ToInt32(Console.ReadLine());
-                        ModifyAccount.Modify(accNo);
+                    else if (choice2 == 2)
+                        await CreateCustomerAccount.CreateAccount<ICurrentCustomer>(currentCustomers, AccountType.Current);
 
-                        break;
+                    else
+                        Console.WriteLine("Invalid choice");
 
-                    case 3:
-                        Console.WriteLine("Enter account number to delete: ");
-                        int acc = Convert.ToInt32(Console.ReadLine());
+                    Console.ReadLine();
+                    break;
 
-                        DeleteAccount.Delete(acc);
-                        break;
+                case 2:
+                    Console.WriteLine("Enter account number to modify: ");
+                    int accNo = Convert.ToInt32(Console.ReadLine());
 
-                    default:
-                        Console.WriteLine("Invalid selection");
-                        break;
-                }
+                    if (accNo.ToString().Substring(0, 4) == "1001")
+                        ModifyAccount.Modify<ISavingsCustomer>(accNo, AccountType.Savings);
+
+                    else if (accNo.ToString().Substring(0, 4) == "9001")
+                        ModifyAccount.Modify<ICurrentCustomer>(accNo, AccountType.Current);
+
+                    else
+                        Console.WriteLine("Invalid account number");
+
+                    Console.ReadLine();
+
+                    break;
+
+                case 3:
+                    Console.WriteLine("Enter account number to delete: ");
+                    int acc = Convert.ToInt32(Console.ReadLine());
+
+                    if (acc.ToString().Substring(0, 4) == "1001")
+                        DeleteAccount.Delete<ISavingsCustomer>(acc, AccountType.Savings);
+
+                    else if (acc.ToString().Substring(0, 4) == "9001")
+                        DeleteAccount.Delete<ICurrentCustomer>(acc, AccountType.Current);
+
+                    else
+                        Console.WriteLine("Invalid account number");
+
+                    Console.ReadLine();
+                    break;
+
+                case 4:
+                    Console.WriteLine("You have successfully logged out");
+                    Console.ReadLine();
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid selection");
+                    break;
             }
         }
     }

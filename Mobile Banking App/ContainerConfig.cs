@@ -25,8 +25,6 @@ namespace MobileBankingApplication
             builder.RegisterType<Administrator>().As<IAdministrator>();
             builder.RegisterType<ApplicationForCustomer>().AsSelf();
             builder.RegisterType<ApplicationForAdmin>().AsSelf();
-            builder.RegisterType<CreateSavingsAccount>().AsSelf();
-            builder.RegisterType<CreateCurrentAccount>().AsSelf();
 
             return builder.Build();
         }

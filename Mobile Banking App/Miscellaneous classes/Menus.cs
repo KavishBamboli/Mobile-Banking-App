@@ -20,7 +20,7 @@ namespace MobileBankingApplication
             Console.WriteLine("1. Create a customer account");
             Console.WriteLine("2. Modify a customer account");
             Console.WriteLine("3. Delete a customer account");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Log out");
             Console.WriteLine("Enter your selection");
         }
 
@@ -37,7 +37,7 @@ namespace MobileBankingApplication
             Console.WriteLine("3. Transfer money into other accounts");
             Console.WriteLine("4. View balance in your account");
             Console.WriteLine("5. View mini account statement");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Log out");
             Console.WriteLine("Enter your selection");
         }
     }

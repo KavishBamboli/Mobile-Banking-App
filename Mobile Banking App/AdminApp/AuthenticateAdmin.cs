@@ -27,8 +27,13 @@ namespace MobileBankingApplication
             foreach (Administrator administrator in admins)
             {
                 if (administrator.userName == username && administrator.password == password)
+                {
+                    stream.Close();
                     return (IAdministrator)administrator;
+                }
             }
+
+            stream.Close();
             return null;
         }
     }

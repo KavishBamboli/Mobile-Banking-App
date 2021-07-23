@@ -84,11 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminApp\ApplicationForAdmin.cs" />
-    <Compile Include="AdminUseClasses\CreateCurrentAccount.cs" />
-    <Compile Include="AdminUseClasses\CreateSavingsAccount.cs" />
     <Compile Include="AdminUseClasses\DeleteAccount.cs" />
     <Compile Include="AdminUseClasses\EmailValidator.cs" />
     <Compile Include="AdminUseClasses\ModifyAccount.cs" />
+    <Compile Include="AdminUseClasses\CreateCustomerAccount.cs" />
     <Compile Include="CustomerApp\ApplicationForCustomer.cs" />
     <Compile Include="AdminApp\AuthenticateAdmin.cs" />
     <Compile Include="CustomerApp\AuthenticateCustomer.cs" />
@@ -102,10 +101,13 @@
     <Compile Include="CustomerUseClasses\WithdrawMoney.cs" />
     <Compile Include="FileHandling.cs\LoadCustomerData.cs" />
     <Compile Include="FileHandling.cs\LoadAdminData.cs" />
-    <Compile Include="Menus.cs" />
+    <Compile Include="Miscellaneous classes\Menus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FileHandling.cs\SaveCustomerData.cs" />
+    <Compile Include="FileHandling.cs\RetrieveCustomer.cs" />
     <Compile Include="UserChoiceHandler.cs" />
+    <Compile Include="WireCustomerData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

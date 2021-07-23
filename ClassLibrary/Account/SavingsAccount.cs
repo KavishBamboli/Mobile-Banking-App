@@ -9,7 +9,7 @@ namespace ClassLibrary.Account
     public class SavingsAccount : IAccount
     {
         public int accNo { get; set; }
-        public int balance { get; set; } = 50000;
+        public int balance { get; set; }
         public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
         
         public bool MakeDeposit(int amount, string details)

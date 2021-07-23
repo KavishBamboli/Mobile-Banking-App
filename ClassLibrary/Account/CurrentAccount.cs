@@ -9,7 +9,7 @@ namespace ClassLibrary.Account
     public class CurrentAccount : IAccount, ICurrentAccount
     {
         public int accNo { get; set; }
-        public int balance { get; set; } = 500000;
+        public int balance { get; set; }
         public int TotalOverdraftBalance { get; private set; }
         public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
 
