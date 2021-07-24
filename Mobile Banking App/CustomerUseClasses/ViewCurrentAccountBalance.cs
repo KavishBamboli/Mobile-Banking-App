@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class ViewCurrentAccountBalance
     {
-        public static void ViewBalance(IAccount account)
+        public static void ViewBalance(ISavingsAccount account)
         {
             if (account.balance < 0)
             {

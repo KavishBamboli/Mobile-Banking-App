@@ -12,6 +12,6 @@ namespace ClassLibrary.Customer
         string Name { get; set; }
         string Email { get; set; }
         int LoginPin { get; set; }
-        IAccount Account { get; set; }
+        ISavingsAccount Account { get; set; }
     }
 }

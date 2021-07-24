@@ -31,13 +31,14 @@ namespace MobileBankingApplication
 
                 if (_savingsCustomer != null)
                 {
+
+                    Console.WriteLine();
+                    Console.WriteLine($"Welcome Mr/Mrs. {_savingsCustomer.Name}");
+                    Console.ReadLine();
+
                     int choice2;
                     do
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Welcome Mr/Mrs. {_savingsCustomer.Name}");
-                        Console.ReadLine();
-
                         Console.Clear();
                         Menus.TertiaryCustomerMenu();
 

@@ -34,8 +34,13 @@ namespace MobileBankingApplication
                     col += 1;
                 }
 
-                ws.Cells[row, col].Value = customer.Account.accNo;
-                ws.Cells[row, col + 1].Value = customer.Account.balance;
+                var accountProp = customer.Account.GetType().GetProperties();
+
+                for(int i = 0; i < accountProp.Length - 1; i++)
+                {
+                    ws.Cells[row, col].Value = accountProp[i].GetValue(customer.Account);
+                    col += 1;
+                }
 
                 await package.SaveAsync();
             }

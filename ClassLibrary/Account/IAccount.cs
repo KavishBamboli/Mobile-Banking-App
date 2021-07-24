@@ -2,7 +2,7 @@
 
 namespace ClassLibrary.Account
 {
-    public interface IAccount
+    public interface ISavingsAccount
     {
         int accNo { get; set; }
         int balance { get; set; }

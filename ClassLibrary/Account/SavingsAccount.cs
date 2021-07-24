@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ClassLibrary.Account
 {
-    public class SavingsAccount : IAccount
+    public class SavingsAccount : ISavingsAccount
     {
         public int accNo { get; set; }
         public int balance { get; set; }
@@ -17,12 +18,12 @@ namespace ClassLibrary.Account
             if (amount < 20000)
             {
                 balance += amount;
-                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Savings));
+                var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Savings);
+                SaveTransactionToFile.Save(accNo, transaction);
                 return true;
             }
             else
                 return false;
-
         }
 
         public bool MakeWithdrawal(int amount, string details)
@@ -32,7 +33,8 @@ namespace ClassLibrary.Account
             else
             {
                 balance -= amount;
-                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Savings));
+                var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Savings);
+                SaveTransactionToFile.Save(accNo, transaction);
                 return true;
             }
         }

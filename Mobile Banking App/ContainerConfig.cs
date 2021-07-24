@@ -18,9 +18,9 @@ namespace MobileBankingApplication
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<SavingsAccount>().As<IAccount>();
+            builder.RegisterType<SavingsAccount>().As<ISavingsAccount>();
             builder.RegisterType<CurrentAccount>().As<ICurrentAccount>();
-            builder.Register(ctx => new SavingsCustomer(ctx.Resolve<IAccount>())).As<ISavingsCustomer>();
+            builder.Register(ctx => new SavingsCustomer(ctx.Resolve<ISavingsAccount>())).As<ISavingsCustomer>();
             builder.Register(ctx => new CurrentCustomer(ctx.Resolve<ICurrentAccount>())).As<ICurrentCustomer>();
             builder.RegisterType<Administrator>().As<IAdministrator>();
             builder.RegisterType<ApplicationForCustomer>().AsSelf();

@@ -11,7 +11,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class Balance
     {
-        public delegate void ViewBalance(IAccount account);
+        public delegate void ViewBalance(ISavingsAccount account);
 
         internal static void View(ViewBalance balance, ICustomer customer)
         {

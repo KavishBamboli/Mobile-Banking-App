@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Account
 {
-    public class CurrentAccount : IAccount, ICurrentAccount
+    public class CurrentAccount : ISavingsAccount, ICurrentAccount
     {
         public int accNo { get; set; }
         public int balance { get; set; }
-        public int TotalOverdraftBalance { get; private set; }
+        public int TotalOverdraftBalance { get; set; }
         public List<ITransactions> transactions { get; set; } = new List<ITransactions>();
 
         public bool MakeDeposit(int amount, string details)
@@ -18,7 +18,8 @@ namespace ClassLibrary.Account
             if (amount < 100000)
             {
                 balance += amount;
-                transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Current));
+                var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Current);
+                SaveTransactionToFile.Save(accNo, transaction);
                 return true;
             }
             else
@@ -39,7 +40,8 @@ namespace ClassLibrary.Account
                 else
                 {
                     balance -= amount;
-                    transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current));
+                    var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current);
+                    SaveTransactionToFile.Save(accNo, transaction);
                     return true;
                 }
             }
@@ -56,8 +58,8 @@ namespace ClassLibrary.Account
                 else
                 {
                     balance -= amount;
-                    transactions.Add(RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current));
-                    TotalOverdraftBalance += amount;
+                    var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current);
+                    SaveTransactionToFile.Save(accNo, transaction);
                     return true;
                 }
             }

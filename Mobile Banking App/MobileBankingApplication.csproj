@@ -107,7 +107,7 @@
     <Compile Include="FileHandling.cs\SaveCustomerData.cs" />
     <Compile Include="FileHandling.cs\RetrieveCustomer.cs" />
     <Compile Include="UserChoiceHandler.cs" />
-    <Compile Include="WireCustomerData.cs" />
+    <Compile Include="Miscellaneous classes\WireCustomerData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

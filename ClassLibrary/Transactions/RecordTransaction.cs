@@ -8,7 +8,7 @@ namespace ClassLibrary
 {
     internal static class RecordTransaction
     {
-        public static ITransactions Record(int amount, DateTime date, string details, string type, AccountType account)
+        internal static ITransactions Record(int amount, DateTime date, string details, string type, AccountType account)
         {
             ITransactions transaction = new Transactions();
 

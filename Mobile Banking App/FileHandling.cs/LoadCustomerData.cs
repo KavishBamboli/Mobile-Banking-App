@@ -9,7 +9,7 @@ namespace MobileBankingApplication
 {
     internal static class LoadCustomerData
     {
-        internal static async Task<List<T>> Load<T>(Stream stream, AccountType type)
+        internal static async Task<List<T>> Load<T>(Stream stream, AccountType type) where T : ICustomer
         {
             List<T> output = new List<T>();
 
