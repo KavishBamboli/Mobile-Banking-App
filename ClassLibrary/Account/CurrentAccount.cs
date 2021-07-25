@@ -20,6 +20,8 @@ namespace ClassLibrary.Account
                 balance += amount;
                 var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Current);
                 SaveTransactionToFile.Save(accNo, transaction);
+                SaveChangesToFile.Save(accNo, balance, AccountType.Current);
+                transactions.Add(transaction);
                 return true;
             }
             else
@@ -30,9 +32,19 @@ namespace ClassLibrary.Account
         {
             if (amount < 50000)
             {
-                if (balance < amount)
+                if (balance < amount && balance > 0)
                 {
-                    if (MakeOverdraft(balance - amount, "Made overdarft from the account"))
+                    int overdraftAmount = amount - balance;
+                    int remainingAmount = amount - overdraftAmount;
+                    MakeWithdrawal(remainingAmount, "Withdrew money from account");
+                    if (MakeOverdraft(overdraftAmount, "Overdrawn from the account"))
+                        return true;
+                    else
+                        return false;
+                }
+                else if (balance < 0)
+                {
+                    if (MakeOverdraft(amount, "Overdrawn from the account"))
                         return true;
                     else
                         return false;
@@ -42,6 +54,8 @@ namespace ClassLibrary.Account
                     balance -= amount;
                     var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current);
                     SaveTransactionToFile.Save(accNo, transaction);
+                    SaveChangesToFile.Save(accNo, balance, AccountType.Current);
+                    transactions.Add(transaction);
                     return true;
                 }
             }
@@ -58,8 +72,11 @@ namespace ClassLibrary.Account
                 else
                 {
                     balance -= amount;
+                    TotalOverdraftBalance += amount;
                     var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Current);
                     SaveTransactionToFile.Save(accNo, transaction);
+                    SaveChangesToFile.Save(accNo, balance, TotalOverdraftBalance);
+                    transactions.Add(transaction);
                     return true;
                 }
             }

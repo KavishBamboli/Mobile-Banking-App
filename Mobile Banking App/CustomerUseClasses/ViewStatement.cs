@@ -12,13 +12,45 @@ namespace MobileBankingApplication.CustomerUseClasses
     {
         public static void View<T>(T customer) where T : ICustomer
         {
-            //if required include a function to fill in the transaction in the customer class
-            Console.WriteLine($"Date\t\tTransaction Id\t\tDetails\t\tAmount\t\tDebit/Credit");
-            foreach (ITransactions transaction in customer.Account.transactions)
+            PrintLine();
+            PrintRow("Transaction Id", "Date", "Details", "Amount", "Debit/Credit");
+            PrintLine();
+            foreach(var t in customer.Account.transactions)
             {
-                Console.WriteLine();
-                Console.WriteLine($"{transaction.TransactionDate}\t\t {transaction.TransactionId}\t\t {transaction.TransactionDescription}\t\t {transaction.Amount}\t\t {transaction.TransactonType} ");
-                Console.WriteLine();
+                PrintRow($"{t.TransactionId}", $"{t.TransactionDate.ToShortDateString()}", $"{t.TransactionDescription}", $"{t.Amount}", $"{t.TransactonType}");
+            }
+            PrintLine();
+
+        }
+        static void PrintLine()
+        {
+            Console.WriteLine(new string('-', 150));
+        }
+
+        static void PrintRow(params string[] columns)
+        {
+            int width = (150 - columns.Length) / columns.Length;
+            string row = "|";
+
+            foreach (string column in columns)
+            {
+                row += AlignCentre(column, width) + "|";
+            }
+
+            Console.WriteLine(row);
+        }
+
+        static string AlignCentre(string text, int width)
+        {
+            text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
+
+            if (string.IsNullOrEmpty(text))
+            {
+                return new string(' ', width);
+            }
+            else
+            {
+                return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
             }
         }
     }

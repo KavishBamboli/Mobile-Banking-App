@@ -61,7 +61,7 @@ namespace MobileBankingApplication
                 {
                     var tws = package.Workbook.Worksheets[0];
 
-                    while (string.IsNullOrWhiteSpace(ws.Cells[trow, tcol].Value?.ToString()) == false)
+                    while (string.IsNullOrWhiteSpace(tws.Cells[trow, tcol].Value?.ToString()) == false)
                     {
                         Transactions t = new Transactions();
 

@@ -35,8 +35,24 @@ namespace MobileBankingApplication
                     break;
 
                 case 3:
-                    if (TransferMoney.Transfer(customer))
-                        Console.WriteLine("Money transferred successfully");
+                    Console.WriteLine("Enter beneficiary account number: ");
+                    int accNo = Convert.ToInt32(Console.ReadLine());
+
+                    int row;
+                    if(accNo.ToString().Substring(0, 4) == "1001")
+                    {
+                        var beneficiaryCustomer = RetrieveCustomer.Retrieve<ISavingsCustomer>(accNo, AccountType.Savings, out row);
+                        if (TransferMoney.Transfer<T, ISavingsCustomer>(customer, beneficiaryCustomer))
+                            Console.WriteLine("Money transferred successfully");
+                    }
+
+                    else if(accNo.ToString().Substring(0, 4) == "9001")
+                    {
+                        var beneficiaryCustomer = RetrieveCustomer.Retrieve<ICurrentCustomer>(accNo, AccountType.Current, out row);
+                        if (TransferMoney.Transfer<T, ICurrentCustomer>(customer, beneficiaryCustomer))
+                            Console.WriteLine("Money transferred successfully");
+                    }
+
                     Console.ReadLine();
                     break;
 

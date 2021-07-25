@@ -62,13 +62,14 @@
     <Compile Include="Customer\ISavingsCustomer.cs" />
     <Compile Include="Generators\AccountNumberGenerator.cs" />
     <Compile Include="AccountType.cs" />
-    <Compile Include="Administrator.cs" />
+    <Compile Include="Administrator\Administrator.cs" />
     <Compile Include="Account\CurrentAccount.cs" />
     <Compile Include="Customer\CurrentCustomer.cs" />
     <Compile Include="Account\IAccount.cs" />
-    <Compile Include="IAdministrator.cs" />
+    <Compile Include="Administrator\IAdministrator.cs" />
     <Compile Include="Generators\LoginPinGenerator.cs" />
-    <Compile Include="Transactions\SaveTransactionToFile.cs" />
+    <Compile Include="SaveToFile\SaveChangesToFile.cs" />
+    <Compile Include="SaveToFile\SaveTransactionToFile.cs" />
     <Compile Include="Transactions\RecordTransaction.cs" />
     <Compile Include="Generators\TransactionIdGenerator.cs" />
     <Compile Include="Transactions\ITransactions.cs" />

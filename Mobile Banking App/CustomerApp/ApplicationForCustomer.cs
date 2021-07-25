@@ -59,15 +59,16 @@ namespace MobileBankingApplication
             {
                 _currentCustomer = await AuthenticateCustomer.Authenticate<ICurrentCustomer>(_currentCustomer, ClassLibrary.AccountType.Current);
 
-                int choice2;
-
                 if (_currentCustomer != null)
                 {
+                    Console.WriteLine();
+                    Console.WriteLine($"Welcome {_currentCustomer.Name}");
+                    Console.ReadLine();
+
+                    int choice2;
                     do
                     {
-                        Console.WriteLine($"Welcome {_currentCustomer.Name}");
-                        Console.WriteLine();
-
+                        Console.Clear();
                         Menus.TertiaryCustomerMenu();
 
                         choice2 = Convert.ToInt32(Console.ReadLine());

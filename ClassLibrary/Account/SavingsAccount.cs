@@ -20,6 +20,8 @@ namespace ClassLibrary.Account
                 balance += amount;
                 var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Credit", AccountType.Savings);
                 SaveTransactionToFile.Save(accNo, transaction);
+                SaveChangesToFile.Save(accNo, balance, AccountType.Savings);
+                transactions.Add(transaction);
                 return true;
             }
             else
@@ -28,13 +30,15 @@ namespace ClassLibrary.Account
 
         public bool MakeWithdrawal(int amount, string details)
         {
-            if (balance < amount || amount > 10000)
+            if (balance < amount || amount > 10000 || (balance - amount) < 1200)
                 return false;
             else
             {
                 balance -= amount;
                 var transaction = RecordTransaction.Record(amount, DateTime.Today, details, "Debit", AccountType.Savings);
                 SaveTransactionToFile.Save(accNo, transaction);
+                SaveChangesToFile.Save(accNo, balance, AccountType.Savings);
+                transactions.Add(transaction);
                 return true;
             }
         }
