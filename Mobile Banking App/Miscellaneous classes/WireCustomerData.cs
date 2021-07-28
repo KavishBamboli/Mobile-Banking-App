@@ -26,10 +26,7 @@ namespace MobileBankingApplication
 
                 for(int i = 0; i < accountProp.Length - 1; i++)
                 {
-                    if (accountProp[i].PropertyType == Type.GetType("System.String"))
-                        accountProp[i].SetValue(c.Account, ws.Cells[row, 5 + i].ToString());
-                    else
-                        accountProp[i].SetValue(c.Account, int.Parse(ws.Cells[row, 5 + i].Value.ToString()));
+                    accountProp[i].SetValue(c.Account, int.Parse(ws.Cells[row, 5 + i].Value.ToString()));
                 }
 
                 var transactions = WireTransactionData(row, ws);
@@ -55,21 +52,21 @@ namespace MobileBankingApplication
 
             if (file.Exists)
             {
-                int trow = 3, tcol = 1;
+                int trow = 3;
 
                 using (var package = new ExcelPackage(file))
                 {
                     var tws = package.Workbook.Worksheets[0];
 
-                    while (string.IsNullOrWhiteSpace(tws.Cells[trow, tcol].Value?.ToString()) == false)
+                    while (string.IsNullOrWhiteSpace(tws.Cells[trow, 1].Value?.ToString()) == false)
                     {
                         Transactions t = new Transactions();
 
-                        t.TransactionId = int.Parse(tws.Cells[trow, tcol].Value.ToString());
-                        t.TransactionDate = Convert.ToDateTime(tws.Cells[trow, tcol + 1].Value);
-                        t.TransactionDescription = tws.Cells[trow, tcol + 2].Value.ToString();
-                        t.Amount = int.Parse(tws.Cells[trow, tcol + 3].Value.ToString());
-                        t.TransactonType = tws.Cells[trow, tcol + 4].Value.ToString();
+                        t.TransactionId = int.Parse(tws.Cells[trow, 1].Value.ToString());
+                        t.TransactionDate = Convert.ToDateTime(tws.Cells[trow, 2].Value);
+                        t.TransactionDescription = tws.Cells[trow, 3].Value.ToString();
+                        t.Amount = int.Parse(tws.Cells[trow, 4].Value.ToString());
+                        t.TransactonType = tws.Cells[trow, 5].Value.ToString();
 
                         output.Add(t);
                         trow += 1;

@@ -29,10 +29,8 @@ namespace MobileBankingApplication
                 int choice;
 
                 Stream stream = File.Open(@"D:\Programming Projects\Mobile Banking App\Customers.xlsx", FileMode.Open);
-
                 var savingsCustomers = await LoadCustomerData.Load<ISavingsCustomer>(stream, AccountType.Savings);
                 var currentCustomers = await LoadCustomerData.Load<ICurrentCustomer>(stream, AccountType.Current);
-
                 stream.Close();
 
                 do

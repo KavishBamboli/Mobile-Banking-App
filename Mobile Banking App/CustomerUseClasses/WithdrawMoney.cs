@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class WithdrawMoney
     {
-        internal static bool Withdraw<T>(T customer) where T : ICustomer
+        internal static bool Withdraw(ICustomer customer)
         {
             Console.WriteLine("The balance in your account is " + customer.Account.balance);
             Console.WriteLine();

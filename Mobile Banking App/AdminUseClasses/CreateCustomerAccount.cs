@@ -40,7 +40,7 @@ namespace MobileBankingApplication
                 if (type == AccountType.Savings)
                     customer.Account.MakeDeposit(1500, "Initial deposit");
 
-                await SaveCustomerData.Save<T>(customer, type);
+                await SaveCustomerData.Save(customer, type);
                 Console.WriteLine("Account created successfully");
             }
         }

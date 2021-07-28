@@ -9,7 +9,7 @@ namespace ClassLibrary.Customer
 {
     public class CurrentCustomer : ICurrentCustomer, ICustomer
     {
-        private ISavingsAccount _account;
+        private IAccount _account;
         public string Name { get; set; }
         public string OwnerName { get; set; }
         public string Email { get; set; }
@@ -19,7 +19,7 @@ namespace ClassLibrary.Customer
         {
             _account = account;
         }
-        public ISavingsAccount Account
+        public IAccount Account
         {
             get { return _account; }
             set { _account = value; }

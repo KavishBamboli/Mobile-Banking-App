@@ -17,7 +17,6 @@ namespace MobileBankingApplication
 
             Stream stream = File.Open(@"D:\Programming Projects\Mobile Banking App\Customers.xlsx", FileMode.Open);
             var customers = await LoadCustomerData.Load<T>(stream, type);
-
             stream.Close();
 
             customers = customers.OrderBy(x => x.LoginPin).ToList();
@@ -25,7 +24,7 @@ namespace MobileBankingApplication
             Console.WriteLine("Enter Login Pin: ");
             int pin = Convert.ToInt32(Console.ReadLine());
 
-            customer = Search<T>(customers, 0, customers.Count - 1, pin);
+            customer = Search(customers, 0, customers.Count - 1, pin);
 
             if (customer != null)
                 return customer;
@@ -42,9 +41,9 @@ namespace MobileBankingApplication
                 if (customers[mid].LoginPin == pin)
                     return customers[mid];
                 else if (pin < customers[mid].LoginPin)
-                    return Search<T>(customers, low, mid - 1, pin);
+                    return Search(customers, low, mid - 1, pin);
                 else
-                    return Search<T>(customers, mid + 1, high, pin);
+                    return Search(customers, mid + 1, high, pin);
             }
 
             return default(T);

@@ -13,13 +13,13 @@ namespace MobileBankingApplication
 {
     internal class UserChoiceHandler
     {
-        public static void CustomerChoice<T>(int choice, T customer) where T : ICustomer 
+        public static void CustomerChoice(int choice, ICustomer customer)
         {
             Console.Clear();
             switch (choice)
             {
                 case 1:
-                    if(WithdrawMoney.Withdraw<T>(customer))
+                    if(WithdrawMoney.Withdraw(customer))
                         Console.WriteLine("Withdrawal successful");
                     else
                         Console.WriteLine("Withdrawal failed!!");
@@ -27,7 +27,7 @@ namespace MobileBankingApplication
                     break;
 
                 case 2:
-                    if(DepositMoney.Deposit<T>(customer))
+                    if(DepositMoney.Deposit(customer))
                         Console.WriteLine("Deposit successful");
                     else
                         Console.WriteLine("Deposit failed as it exceeded amount limit per transaction");
@@ -39,19 +39,22 @@ namespace MobileBankingApplication
                     int accNo = Convert.ToInt32(Console.ReadLine());
 
                     int row;
-                    if(accNo.ToString().Substring(0, 4) == "1001")
+                    if(accNo.ToString().Substring(0, 4) == "1001" && accNo.ToString().Length == 9)
                     {
                         var beneficiaryCustomer = RetrieveCustomer.Retrieve<ISavingsCustomer>(accNo, AccountType.Savings, out row);
-                        if (TransferMoney.Transfer<T, ISavingsCustomer>(customer, beneficiaryCustomer))
+                        if (TransferMoney.Transfer(customer, beneficiaryCustomer))
                             Console.WriteLine("Money transferred successfully");
                     }
 
-                    else if(accNo.ToString().Substring(0, 4) == "9001")
+                    else if(accNo.ToString().Substring(0, 4) == "9001" && accNo.ToString().Length == 9)
                     {
                         var beneficiaryCustomer = RetrieveCustomer.Retrieve<ICurrentCustomer>(accNo, AccountType.Current, out row);
-                        if (TransferMoney.Transfer<T, ICurrentCustomer>(customer, beneficiaryCustomer))
+                        if (TransferMoney.Transfer(customer, beneficiaryCustomer))
                             Console.WriteLine("Money transferred successfully");
                     }
+
+                    else
+                        Console.WriteLine("Invalid account number");
 
                     Console.ReadLine();
                     break;
@@ -65,7 +68,7 @@ namespace MobileBankingApplication
                     break;
 
                 case 5:
-                    ViewStatement.View<T>(customer);
+                    ViewStatement.View(customer);
                     Console.ReadLine();
                     break;
 
@@ -93,10 +96,10 @@ namespace MobileBankingApplication
                     Console.Clear();
 
                     if (choice2 == 1)
-                        await CreateCustomerAccount.CreateAccount<ISavingsCustomer>(savingsCustomers, AccountType.Savings);
+                        await CreateCustomerAccount.CreateAccount(savingsCustomers, AccountType.Savings);
 
                     else if (choice2 == 2)
-                        await CreateCustomerAccount.CreateAccount<ICurrentCustomer>(currentCustomers, AccountType.Current);
+                        await CreateCustomerAccount.CreateAccount(currentCustomers, AccountType.Current);
 
                     else
                         Console.WriteLine("Invalid choice");

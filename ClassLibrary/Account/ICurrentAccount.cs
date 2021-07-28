@@ -1,6 +1,6 @@
 ﻿namespace ClassLibrary.Account
 {
-    public interface ICurrentAccount : ISavingsAccount
+    public interface ICurrentAccount : IAccount
     {
         int TotalOverdraftBalance { get; set; }
     }

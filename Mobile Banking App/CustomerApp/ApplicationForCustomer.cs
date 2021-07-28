@@ -27,7 +27,7 @@ namespace MobileBankingApplication
 
             if (choice == 1)
             {
-                _savingsCustomer = await AuthenticateCustomer.Authenticate<ISavingsCustomer>(_savingsCustomer, ClassLibrary.AccountType.Savings);
+                _savingsCustomer = await AuthenticateCustomer.Authenticate(_savingsCustomer, ClassLibrary.AccountType.Savings);
 
                 if (_savingsCustomer != null)
                 {
@@ -44,20 +44,21 @@ namespace MobileBankingApplication
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoiceHandler.CustomerChoice<ISavingsCustomer>(choice2, _savingsCustomer);
+                        UserChoiceHandler.CustomerChoice(choice2, _savingsCustomer);
                     } while (choice2 != 6);
                 }
 
                 else
                 {
                     Console.WriteLine("Invalid login pin");
+                    Console.WriteLine("Press Enter to exit");
                     Console.ReadLine();
                 }
             }
 
             else if (choice == 2)
             {
-                _currentCustomer = await AuthenticateCustomer.Authenticate<ICurrentCustomer>(_currentCustomer, ClassLibrary.AccountType.Current);
+                _currentCustomer = await AuthenticateCustomer.Authenticate(_currentCustomer, ClassLibrary.AccountType.Current);
 
                 if (_currentCustomer != null)
                 {
@@ -73,13 +74,14 @@ namespace MobileBankingApplication
 
                         choice2 = Convert.ToInt32(Console.ReadLine());
 
-                        UserChoiceHandler.CustomerChoice<ICurrentCustomer>(choice2, _currentCustomer);
+                        UserChoiceHandler.CustomerChoice(choice2, _currentCustomer);
                     } while (choice2 != 6);
                 }
 
                 else
                 {
                     Console.WriteLine("Invalid login pin");
+                    Console.WriteLine("Press Enter to exit");
                     Console.ReadLine();
                 }
             }

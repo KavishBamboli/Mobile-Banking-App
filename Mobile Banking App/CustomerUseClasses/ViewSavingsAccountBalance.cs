@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class ViewSavingsAccountBalance
     {
-        internal static void ViewBalance(ISavingsAccount account)
+        internal static void ViewBalance(IAccount account)
         {
             Console.WriteLine($"The balance in your account is {account.balance} ");
         }

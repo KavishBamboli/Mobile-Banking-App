@@ -9,7 +9,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     public static class TransferMoney
     {
-        public static bool Transfer<T, U>(T customer, U beneficiaryCustomer) where T : ICustomer where U : ICustomer
+        public static bool Transfer(ICustomer customer, ICustomer beneficiaryCustomer)
         {
             if (beneficiaryCustomer == null)
             {

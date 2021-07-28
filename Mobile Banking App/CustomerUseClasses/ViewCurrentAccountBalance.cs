@@ -9,17 +9,17 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     internal static class ViewCurrentAccountBalance
     {
-        public static void ViewBalance(ISavingsAccount account)
+        public static void ViewBalance(IAccount account)
         {
+            ICurrentAccount acc = (ICurrentAccount)account;
+
             if (account.balance < 0)
             {
-                ICurrentAccount account1 = (ICurrentAccount)account;
-
-                Console.WriteLine($"The balance in your account is {account1.balance}");
-                Console.WriteLine($"The overdraft balance in your account is {account1.TotalOverdraftBalance} ");
+                Console.WriteLine($"The balance in your account is {acc.balance}");
+                Console.WriteLine($"The overdraft balance in your account is {acc.TotalOverdraftBalance} ");
             }
             else
-                Console.WriteLine($"The balance in your account is {account.balance}");
+                Console.WriteLine($"The balance in your account is {acc.balance}");
         }
     }
 }

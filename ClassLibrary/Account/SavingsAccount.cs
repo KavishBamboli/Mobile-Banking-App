@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Account
 {
-    public class SavingsAccount : ISavingsAccount
+    public class SavingsAccount : IAccount, ISavingsAccount
     {
         public int accNo { get; set; }
         public int balance { get; set; }

@@ -10,7 +10,7 @@ namespace MobileBankingApplication.CustomerUseClasses
 {
     public static class ViewStatement
     {
-        public static void View<T>(T customer) where T : ICustomer
+        public static void View(ICustomer customer)
         {
             PrintLine();
             PrintRow("Transaction Id", "Date", "Details", "Amount", "Debit/Credit");
