@@ -29,4 +29,3 @@ This mobile banking application is a console application that replicates a real 
 
 1. Autofac - For dependancy injection
 2. Epplus - For working with Excel files for data storage and access
-3. FluentValidation - For data validation
